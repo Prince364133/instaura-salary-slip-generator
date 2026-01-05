@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instaura Salary Slip Generator</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- HTML2PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        /* Custom Scrollbar for the editor pane */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        /* Print Specifics */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #salary-slip-preview, #salary-slip-preview * {
+                visibility: visible;
+            }
+            #salary-slip-preview {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border: none;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* A4 Ratio Preservation for Preview */
+        .a4-ratio {
+            aspect-ratio: 210/297;
+            max-width: 100%;
+        }
+        
+        .slip-table th, .slip-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .slip-table th {
+            text-align: left;
+            font-weight: 600;
+            color: #111827; /* Darker black for header */
+            background-color: #f9fafb;
+            border-top: 2px solid #000; /* Black border top for classic feel */
+        }
+        .slip-table td {
+            color: #1f2937;
+        }
+        .slip-table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#dc2626', /* Red 600 */
+                        secondary: '#000000',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shrink-0 z-20">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-red-600 rounded-lg">
+                <i data-lucide="file-spreadsheet" class="text-white w-6 h-6"></i>
+            </div>
+            <h1 class="text-xl font-bold text-gray-900 tracking-tight">Instaura <span class="text-gray-400 font-normal">| Payroll System</span></h1>
+        </div>
+        <div class="flex items-center gap-3">
+            <button onclick="window.print()" class="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                <i data-lucide="printer" class="w-4 h-4"></i> Print
+            </button>
+            <button onclick="generatePDF()" id="download-btn" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 shadow-sm transition-all transform active:scale-95">
+                <i data-lucide="download" class="w-4 h-4"></i> Download PDF
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <main class="flex-1 flex flex-col md:flex-row overflow-hidden">
+        
+        <!-- Left Panel: Editor Form -->
+        <div class="w-full md:w-5/12 lg:w-4/12 bg-white border-r border-gray-200 flex flex-col h-full z-10 shadow-lg">
+            <div class="p-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                <h2 class="font-semibold text-gray-700 flex items-center gap-2">
+                    <i data-lucide="edit-3" class="w-4 h-4"></i> Editor
+                </h2>
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <span>Theme Color:</span>
+                    <input type="color" id="theme-color" value="#dc2626" class="w-6 h-6 rounded cursor-pointer border-0 p-0" oninput="updateTheme(this.value)">
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 custom-scrollbar space-y-8">
+                
+                <!-- Company Section -->
+                <section>
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Company Details</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Company Logo</label>
+                            <div class="flex items-center gap-3">
+                                <label class="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-300 border-dashed rounded-md cursor-pointer hover:bg-gray-100 transition-colors w-full">
+                                    <i data-lucide="upload" class="w-4 h-4 text-gray-500"></i>
+                                    <span class="text-sm text-gray-500 truncate">Choose file...</span>
+                                    <input type="file" id="logo-upload" class="hidden" accept="image/*" onchange="handleLogoUpload(event)">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+                                <input type="text" id="input-company-name" value="Instaura" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-all" oninput="updatePreview()">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                <input type="text" id="input-company-address" value="DLF Cyber City, Gurugram, Haryana 122002" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-all" oninput="updatePreview()">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="border-gray-100">
+
+                <!-- Employee Section -->
+                <section>
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Employee Details</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Employee Name</label>
+                            <input type="text" id="input-emp-name" value="John Doe" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none" oninput="updatePreview()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Employee ID</label>
+                            <input type="text" id="input-emp-id" value="EMP-2024-045" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none" oninput="updatePreview()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Designation</label>
+                            <input type="text" id="input-designation" value="Senior Developer" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none" oninput="updatePreview()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                            <input type="text" id="input-dept" value="Engineering" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none" oninput="updatePreview()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Pay Period</label>
+                            <input type="text" id="input-pay-period" value="December 2025" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none" oninput="updatePreview()">
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="border-gray-100">
+
+                <!-- Earnings Section -->
+                <section>
+                    <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider mb-4 flex items-center gap-1">
+                        <i data-lucide="plus-circle" class="w-3 h-3"></i> Earnings
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600 w-1/2">Basic Salary</span>
+                            <input type="number" id="input-basic" value="5000" class="input-earning w-1/2 px-3 py-2 border border-gray-300 rounded-md text-sm text-right focus:ring-2 focus:ring-red-500 outline-none" oninput="calculate()">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600 w-1/2">HRA</span>
+                            <input type="number" id="input-hra" value="2000" class="input-earning w-1/2 px-3 py-2 border border-gray-300 rounded-md text-sm text-right focus:ring-2 focus:ring-red-500 outline-none" oninput="calculate()">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600 w-1/2">Conveyance</span>
+                            <input type="number" id="input-conveyance" value="1000" class="input-earning w-1/2 px-3 py-2 border border-gray-300 rounded-md text-sm text-right focus:ring-2 focus:ring-red-500 outline-none" oninput="calculate()">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600 w-1/2">Special Allowance</span>
+                            <input type="number" id="input-special" value="500" class="input-earning w-1/2 px-3 py-2 border border-gray-300 rounded-md text-sm text-right focus:ring-2 focus:ring-red-500 outline-none" oninput="calculate()">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600 w-1/2">Bonus</span>
+                            <input type="number" id="input-bonus" value="0" class="input-earning w-1/2 px-3 py-2 border border-gray-300 rounded-md text-sm text-right focus:ring-2 focus:ring-red-500 outline-none" oninput="calculate()">
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="border-gray-100">
+
+                <!-- Deductions Section -->
+                <section>
+                    <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider mb-4 flex items-center gap-1">
+                        <i data-lucide="minus-circle" class="w-3 h-3"></i> Deductions
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600 w-1/2">Provident Fund</span>
+                            <input type="number" id="input-pf" value="600" class="input-deduction w-1/2 px-3 py-2 border border-gray-300 rounded-md text-sm text-right focus:ring-2 focus:ring-red-500 outline-none" oninput="calculate()">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600 w-1/2">Professional Tax</span>
+                            <input type="number" id="input-pt" value="200" class="input-deduction w-1/2 px-3 py-2 border border-gray-300 rounded-md text-sm text-right focus:ring-2 focus:ring-red-500 outline-none" oninput="calculate()">
+                        </div>
+                         <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600 w-1/2">Income Tax (TDS)</span>
+                            <input type="number" id="input-tds" value="150" class="input-deduction w-1/2 px-3 py-2 border border-gray-300 rounded-md text-sm text-right focus:ring-2 focus:ring-red-500 outline-none" oninput="calculate()">
+                        </div>
+                    </div>
+                </section>
+                
+                <div class="h-10"></div> <!-- Spacer -->
+            </div>
+        </div>
+
+        <!-- Right Panel: Live Preview -->
+        <div class="flex-1 bg-gray-100 overflow-y-auto p-4 md:p-8 flex items-start justify-center">
+            
+            <!-- Salary Slip Container (The Capture Target) -->
+            <div id="salary-slip-target" class="bg-white shadow-2xl w-full max-w-2xl min-h-[800px] p-8 md:p-12 relative print:shadow-none print:w-full">
+                
+                <!-- Decorative Top Border -->
+                <div id="preview-theme-border" class="absolute top-0 left-0 w-full h-3 bg-red-600"></div>
+
+                <!-- Header -->
+                <header class="flex justify-between items-start mb-8 border-b-2 border-black pb-6 mt-4">
+                    <div class="flex items-start gap-4">
+                        <img id="preview-logo" src="https://via.placeholder.com/150x50?text=LOGO" alt="Company Logo" class="h-12 object-contain hidden" style="display: block;"> <!-- Fallback handled in JS -->
+                        <div id="preview-logo-placeholder" class="h-12 w-12 bg-gray-100 rounded flex items-center justify-center text-gray-400">
+                             <i data-lucide="building-2"></i>
+                        </div>
+                        <div>
+                            <h1 id="preview-company-name" class="text-3xl font-bold text-black uppercase tracking-tight">Instaura</h1>
+                            <p id="preview-company-address" class="text-sm text-gray-600 max-w-xs leading-relaxed">DLF Cyber City, Gurugram, Haryana 122002</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <h2 class="text-xl font-bold text-gray-800 tracking-wider">PAYSLIP</h2>
+                        <p id="preview-pay-period" class="text-red-600 font-bold mt-1">December 2025</p>
+                    </div>
+                </header>
+
+                <!-- Employee Summary -->
+                <div class="grid grid-cols-2 gap-y-4 gap-x-8 mb-8 text-sm">
+                    <div class="border-l-4 border-red-600 pl-3">
+                        <p class="text-gray-500 text-xs uppercase tracking-wider mb-0.5">Employee Name</p>
+                        <p id="preview-emp-name" class="font-bold text-gray-900 text-lg">John Doe</p>
+                    </div>
+                    <div class="border-l-4 border-red-600 pl-3">
+                        <p class="text-gray-500 text-xs uppercase tracking-wider mb-0.5">Employee ID</p>
+                        <p id="preview-emp-id" class="font-bold text-gray-900">EMP-2024-045</p>
+                    </div>
+                    <div class="border-l-4 border-black pl-3">
+                        <p class="text-gray-500 text-xs uppercase tracking-wider mb-0.5">Designation</p>
+                        <p id="preview-designation" class="font-medium text-gray-900">Senior Developer</p>
+                    </div>
+                    <div class="border-l-4 border-black pl-3">
+                        <p class="text-gray-500 text-xs uppercase tracking-wider mb-0.5">Department</p>
+                        <p id="preview-dept" class="font-medium text-gray-900">Engineering</p>
+                    </div>
+                </div>
+
+                <!-- Salary Table -->
+                <div class="mb-8 border border-gray-300 rounded-none overflow-hidden">
+                    <table class="w-full text-sm slip-table">
+                        <thead>
+                            <tr class="bg-gray-100 border-b-2 border-black">
+                                <th class="w-1/2 border-r border-gray-300 text-black uppercase">EARNINGS</th>
+                                <th class="w-1/4 text-right border-r border-gray-300 text-black uppercase">AMOUNT</th>
+                                <th class="w-1/4 text-right text-black uppercase">DEDUCTIONS</th>
+                                <th class="w-1/4 text-right text-black uppercase">AMOUNT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic Content will be injected here by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Net Pay Section -->
+                <div class="flex items-center justify-between bg-red-50 p-6 rounded-none border-l-4 border-red-600 mb-8 print:bg-gray-50 print:border-gray-200">
+                    <div>
+                        <p class="text-sm text-red-800 uppercase tracking-wide font-bold mb-1 print:text-black">Net Pay</p>
+                        <p id="preview-net-words" class="text-sm text-red-600 italic print:text-gray-600">Seven Thousand Five Hundred Fifty Only</p>
+                    </div>
+                    <div class="text-right">
+                        <p id="preview-net-pay" class="text-4xl font-bold text-red-700 font-mono print:text-black">$7,550.00</p>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="mt-12 text-center border-t border-gray-200 pt-4">
+                    <p class="text-[10px] text-gray-500">This is a system-generated payslip for Instaura. No signature required.</p>
+                </footer>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-black text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+        <span id="toast-message">Action Successful</span>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Utility: Number Format (Indian Standard)
+        const formatCurrency = (num) => {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'decimal',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(num);
+        };
+
+        // Utility: Number to Words (Indian Numbering System)
+        function numToWords(n) {
+            if (n < 0) return false;
+            if (n === 0) return 'Zero';
+
+            const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+            const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+            function convert(num) {
+                if (num === 0) return '';
+                else if (num < 10) return units[num];
+                else if (num < 20) return teens[num - 10];
+                else if (num < 100) return tens[Math.floor(num / 10)] + (num % 10 ? ' ' + units[num % 10] : '');
+                else return units[Math.floor(num / 100)] + ' Hundred' + (num % 100 ? ' ' + convert(num % 100) : '');
+            }
+
+            let str = '';
+            
+            // Crores
+            if (Math.floor(n / 10000000) > 0) {
+                str += convert(Math.floor(n / 10000000)) + ' Crore ';
+                n %= 10000000;
+            }
+            
+            // Lakhs
+            if (Math.floor(n / 100000) > 0) {
+                str += convert(Math.floor(n / 100000)) + ' Lakh ';
+                n %= 100000;
+            }
+
+            // Thousands
+            if (Math.floor(n / 1000) > 0) {
+                str += convert(Math.floor(n / 1000)) + ' Thousand ';
+                n %= 1000;
+            }
+
+            // Hundreds and below
+            if (n > 0) {
+                str += convert(n);
+            }
+
+            return str.trim() + ' Only';
+        }
+
+        // Logic: Calculate Totals & Render Table
+        function calculate() {
+            // Configuration of fields
+            const earningsConfig = [
+                { id: 'input-basic', label: 'Basic Salary' },
+                { id: 'input-hra', label: 'HRA' },
+                { id: 'input-conveyance', label: 'Conveyance' },
+                { id: 'input-special', label: 'Special Allowance' },
+                { id: 'input-bonus', label: 'Bonus' }
+            ];
+
+            const deductionsConfig = [
+                { id: 'input-pf', label: 'Provident Fund' },
+                { id: 'input-pt', label: 'Professional Tax' },
+                { id: 'input-tds', label: 'Income Tax (TDS)' }
+            ];
+
+            // Filter Active Earnings (Value > 0)
+            let activeEarnings = [];
+            let totalEarnings = 0;
+
+            earningsConfig.forEach(field => {
+                const val = parseFloat(document.getElementById(field.id).value) || 0;
+                if (val > 0) {
+                    activeEarnings.push({ label: field.label, amount: val });
+                    totalEarnings += val;
+                }
+            });
+
+            // Filter Active Deductions (Value > 0)
+            let activeDeductions = [];
+            let totalDeductions = 0;
+
+            deductionsConfig.forEach(field => {
+                const val = parseFloat(document.getElementById(field.id).value) || 0;
+                if (val > 0) {
+                    activeDeductions.push({ label: field.label, amount: val });
+                    totalDeductions += val;
+                }
+            });
+
+            const netPay = totalEarnings - totalDeductions;
+
+            // Render the Dynamic Table
+            renderTable(activeEarnings, activeDeductions, totalEarnings, totalDeductions);
+
+            // Update Net Pay display
+            document.getElementById('preview-net-pay').innerText = '₹' + formatCurrency(netPay);
+            document.getElementById('preview-net-words').innerText = numToWords(Math.floor(netPay));
+        }
+
+        // Logic: Render Table HTML
+        function renderTable(earnings, deductions, totalEarn, totalDed) {
+            const tbody = document.querySelector('.slip-table tbody');
+            const maxRows = Math.max(earnings.length, deductions.length);
+            
+            let html = '';
+
+            for (let i = 0; i < maxRows; i++) {
+                const earn = earnings[i] || { label: '', amount: null };
+                const ded = deductions[i] || { label: '', amount: null };
+
+                const earnLabel = earn.label;
+                const earnAmount = earn.amount !== null ? formatCurrency(earn.amount) : '';
+                
+                const dedLabel = ded.label;
+                const dedAmount = ded.amount !== null ? formatCurrency(ded.amount) : '';
+
+                // Styling classes must match original design
+                html += `
+                    <tr>
+                        <td class="border-r border-gray-200">${earnLabel}</td>
+                        <td class="text-right font-mono border-r border-gray-200">${earnAmount}</td>
+                        <td class="text-right border-r border-gray-200">${dedLabel}</td>
+                        <td class="text-right font-mono text-red-600">${dedAmount}</td>
+                    </tr>
+                `;
+            }
+
+            // Handle empty case gracefully
+            if (maxRows === 0) {
+                 html += `<tr><td colspan="4" class="text-center py-4 text-gray-400 text-xs uppercase tracking-widest">No earning or deduction details available</td></tr>`;
+            }
+
+            // Totals Row
+            html += `
+                <tr class="bg-gray-100 font-bold border-t-2 border-black">
+                    <td class="border-r border-gray-300 uppercase text-xs tracking-wider text-black pt-3">Total Earnings</td>
+                    <td class="text-right text-black pt-3 border-r border-gray-300" id="preview-total-earnings">${formatCurrency(totalEarn)}</td>
+                    <td class="text-right uppercase text-xs tracking-wider text-black pt-3 border-r border-gray-300">Total Deductions</td>
+                    <td class="text-right text-red-600 pt-3" id="preview-total-deductions">${formatCurrency(totalDed)}</td>
+                </tr>
+            `;
+
+            tbody.innerHTML = html;
+        }
+
+        // Logic: Update Text Fields
+        function updatePreview() {
+            document.getElementById('preview-company-name').innerText = document.getElementById('input-company-name').value || 'Company Name';
+            document.getElementById('preview-company-address').innerText = document.getElementById('input-company-address').value || '';
+            document.getElementById('preview-emp-name').innerText = document.getElementById('input-emp-name').value || '-';
+            document.getElementById('preview-emp-id').innerText = document.getElementById('input-emp-id').value || '-';
+            document.getElementById('preview-designation').innerText = document.getElementById('input-designation').value || '-';
+            document.getElementById('preview-dept').innerText = document.getElementById('input-dept').value || '-';
+            document.getElementById('preview-pay-period').innerText = document.getElementById('input-pay-period').value || '-';
+        }
+
+        // Logic: Theme Color
+        function updateTheme(color) {
+            document.getElementById('preview-theme-border').style.backgroundColor = color;
+            document.getElementById('preview-net-pay').style.color = color;
+            document.getElementById('preview-pay-period').style.color = color;
+            
+            // Also update the border lines that follow the theme
+            const employeeBorders = document.querySelectorAll('.border-l-4.border-red-600');
+            employeeBorders.forEach(el => el.style.borderColor = color);
+            
+             // Also update the net pay box
+            const netPayBox = document.querySelector('.border-l-4.border-red-600');
+             if(netPayBox) netPayBox.style.borderColor = color;
+        }
+
+        // Logic: Logo Upload
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('preview-logo');
+                    const placeholder = document.getElementById('preview-logo-placeholder');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    placeholder.style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Logic: PDF Generation
+        function generatePDF() {
+            const element = document.getElementById('salary-slip-target');
+            const btn = document.getElementById('download-btn');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Processing...`;
+            
+            const opt = {
+                margin:       0,
+                filename:     `Salary_Slip_${document.getElementById('input-emp-id').value}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.innerHTML = originalText;
+                lucide.createIcons();
+                showToast('PDF Downloaded Successfully');
+            }).catch(err => {
+                console.error(err);
+                btn.innerHTML = originalText;
+                lucide.createIcons();
+                showToast('Error generating PDF');
+            });
+        }
+
+        // Toast Notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            calculate();
+            updatePreview();
+        });
+
+    </script>
+</body>
+</html>
