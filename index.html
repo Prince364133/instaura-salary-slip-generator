@@ -360,8 +360,12 @@
         }
 
         function removeCustomField(btn) {
-            btn.closest('div.flex.items-center.gap-2').remove();
-            calculate();
+            // FIXED: Target specific row classes to remove the entire row
+            const row = btn.closest('.custom-earning-row, .custom-deduction-row');
+            if (row) {
+                row.remove();
+                calculate();
+            }
         }
 
         function calculate() {
@@ -533,4 +537,4 @@
         window.addEventListener('load', () => { calculate(); updatePreview(); });
     </script>
 </body>
-</html>
+</html>n karnataka 
