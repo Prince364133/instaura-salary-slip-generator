@@ -109,12 +109,15 @@
             </div>
             <h1 class="text-xl font-bold text-gray-900 tracking-tight">Instaura <span class="text-gray-400 font-normal">| Payroll System</span></h1>
         </div>
-        <div class="flex items-center gap-3">
-            <button onclick="window.print()" class="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+        <div class="flex items-center gap-2">
+            <button onclick="window.print()" class="hidden md:flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                 <i data-lucide="printer" class="w-4 h-4"></i> Print
             </button>
-            <button onclick="generatePDF()" id="download-btn" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 shadow-sm transition-all transform active:scale-95">
-                <i data-lucide="download" class="w-4 h-4"></i> Download PDF
+            <button onclick="generateWord()" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 shadow-sm transition-all transform active:scale-95">
+                <i data-lucide="file-text" class="w-4 h-4"></i> Word
+            </button>
+            <button onclick="generatePDF()" id="download-btn" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 shadow-sm transition-all transform active:scale-95">
+                <i data-lucide="file-down" class="w-4 h-4"></i> PDF
             </button>
         </div>
     </nav>
@@ -537,6 +540,94 @@
             }
         }
 
+        // Logic: Generate Word Document
+        function generateWord() {
+            const element = document.getElementById('salary-slip-target');
+            const empId = document.getElementById('input-emp-id').value || 'Slip';
+            
+            // Get the HTML content
+            const content = element.innerHTML;
+            
+            // Construct the Word-friendly HTML wrapper
+            // Note: We inject a robust <style> block to map Tailwind classes to standard CSS
+            // so they render correctly in MS Word.
+            const preHtml = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>Salary Slip</title>
+                    <style>
+                        body { font-family: 'Arial', sans-serif; font-size: 11pt; }
+                        
+                        /* Layout Mappings */
+                        .flex { display: flex; }
+                        .justify-between { justify-content: space-between; }
+                        .items-center { align-items: center; }
+                        .text-right { text-align: right; }
+                        .text-center { text-align: center; }
+                        .uppercase { text-transform: uppercase; }
+                        .font-bold { font-weight: bold; }
+                        .font-semibold { font-weight: 600; }
+                        .italic { font-style: italic; }
+                        .underline { text-decoration: underline; }
+                        
+                        /* Colors */
+                        .text-red-600 { color: #dc2626 !important; }
+                        .text-gray-500 { color: #6b7280; }
+                        .text-gray-600 { color: #4b5563; }
+                        .text-gray-800 { color: #1f2937; }
+                        .bg-red-50 { background-color: #fef2f2; }
+                        .bg-gray-100 { background-color: #f3f4f6; }
+                        
+                        /* Borders */
+                        .border-b { border-bottom: 1px solid #000; }
+                        .border-b-2 { border-bottom: 2px solid #000; }
+                        .border-t { border-top: 1px solid #ccc; }
+                        .border-l-4 { border-left: 4px solid #dc2626; padding-left: 10px; }
+                        
+                        /* Table Specifics for Word */
+                        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                        th { background-color: #f3f4f6; text-align: left; padding: 8px; border: 1px solid #ddd; }
+                        td { padding: 8px; border: 1px solid #ddd; vertical-align: top; }
+                        
+                        /* Specific Fixes */
+                        .h-12 { height: 48px; }
+                        .w-12 { width: 48px; }
+                        .mb-8 { margin-bottom: 20px; }
+                        .mt-4 { margin-top: 15px; }
+                        .pb-6 { padding-bottom: 20px; }
+                        .pt-3 { padding-top: 10px; }
+                    </style>
+                </head>
+                <body>
+            `;
+            const postHtml = "</body></html>";
+            
+            const html = preHtml + content + postHtml;
+
+            // Create Blob and Link
+            const blob = new Blob(['\ufeff', html], {
+                type: 'application/msword'
+            });
+            
+            // Download Link
+            const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+            const downloadLink = document.createElement("a");
+            document.body.appendChild(downloadLink);
+            
+            // Check if navigator.msSaveOrOpenBlob exists (for IE)
+            if (navigator.msSaveOrOpenBlob) {
+                navigator.msSaveOrOpenBlob(blob, `Salary_Slip_${empId}.doc`);
+            } else {
+                downloadLink.href = url;
+                downloadLink.download = `Salary_Slip_${empId}.doc`;
+                downloadLink.click();
+            }
+            
+            document.body.removeChild(downloadLink);
+            showToast('Word Document Downloaded');
+        }
+
         // Logic: PDF Generation
         function generatePDF() {
             const element = document.getElementById('salary-slip-target');
@@ -546,10 +637,10 @@
             btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Processing...`;
             
             const opt = {
-                margin:       0,
+                margin:       0.2, /* Slight margin to prevent clipping */
                 filename:     `Salary_Slip_${document.getElementById('input-emp-id').value}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
+                image:        { type: 'jpeg', quality: 1.0 }, /* Max quality */
+                html2canvas:  { scale: 3, useCORS: true, logging: false }, /* Scale 3 for sharpness */
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
