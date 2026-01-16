@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal - The Only Basis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#D91F26',
+                            dark: '#030304',
+                            card: '#111216',
+                            stroke: '#2D2D30'
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-glow': "radial-gradient(circle at 50% 50%, rgba(217, 31, 38, 0.15) 0%, transparent 60%)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030304;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 40px rgba(217, 31, 38, 0.3);
+        }
+
+        /* Custom curve lines effect placeholder - using SVG for better control in real impl */
+        .bg-curves {
+            background-image:
+                radial-gradient(circle at 70% 80%, rgba(217, 31, 38, 0.15) 0%, transparent 40%),
+                url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 1440 800' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-100 600 C 200 600, 500 800, 800 200' stroke='%23D91F26' stroke-width='1' stroke-opacity='0.2' fill='none'/%3E%3Cpath d='M-100 700 C 300 700, 600 900, 900 100' stroke='%23D91F26' stroke-width='1' stroke-opacity='0.1' fill='none'/%3E%3Cpath d='M1000 800 C 1200 600, 1300 400, 1500 0' stroke='%23D91F26' stroke-width='1' stroke-opacity='0.2' fill='none'/%3E%3Cpath d='M900 800 C 1100 500, 1200 300, 1400 -100' stroke='%23D91F26' stroke-width='1' stroke-opacity='0.1' fill='none'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .glass-card {
+            background: rgba(17, 18, 22, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-curves flex items-center justify-center relative">
+
+    <main class="w-full max-w-7xl mx-auto px-6 py-20 lg:py-32 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+
+        <!-- Left Content -->
+        <div class="space-y-8">
+            <h1 class="text-6xl md:text-8xl font-black tracking-tight leading-[0.9]">
+                Signal is the<br>
+                <span class="text-brand-red text-glow">Only Basis.</span>
+            </h1>
+
+            <p class="text-xl md:text-2xl text-gray-300 font-normal leading-relaxed max-w-2xl">
+                Every real outcome — capital, clarity, growth, scale — begins with one thing: <span
+                    class="font-bold text-white">Signal. Not noise.</span> We build. You move.
+            </p>
+
+            <div class="flex flex-wrap gap-4 pt-4">
+                <button
+                    class="bg-brand-red hover:bg-red-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-red-900/20">
+                    Talk to YAS
+                </button>
+                <button
+                    class="bg-[#1A1B1E] hover:bg-[#25262A] border border-gray-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:border-gray-500">
+                    Book a Signal Call
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Content: Interactive Card -->
+        <div class="relative">
+            <!-- Decorative dots/lines around card could go here -->
+
+            <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-lg mx-auto lg:ml-auto">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></div>
+                    <span class="font-bold text-white text-lg">Your First Move</span>
+                </div>
+
+                <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+                    Ask Yas anything — services, case studies, GTM models, capital readiness, or to book a Signal Call.
+                </p>
+
+                <button
+                    class="w-full bg-brand-red hover:bg-red-700 text-white p-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-colors group">
+                    Start the Conversation
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="group-hover:translate-x-1 transition-transform">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+
+                <div class="mt-8 flex items-center justify-between border-t border-gray-800 pt-6">
+                    <span class="text-sm text-gray-500 font-medium">Signal Strength</span>
+                    <span class="text-sm text-green-500 font-bold">Strong</span>
+                </div>
+                <div class="flex gap-1 mt-2">
+                    <div class="h-1.5 w-8 rounded-full bg-brand-red"></div>
+                    <div class="h-1.5 w-8 rounded-full bg-brand-red"></div>
+                    <div class="h-1.5 w-8 rounded-full bg-brand-red"></div>
+                    <div class="h-1.5 w-8 rounded-full bg-brand-red"></div>
+                    <div class="h-1.5 w-8 rounded-full bg-gray-700"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Bottom scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-center opacity-50">
+        <span class="text-xs uppercase tracking-widest text-gray-500 mb-2 block">Scroll to explore</span>
+        <svg class="w-6 h-6 mx-auto text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+
+</body>
+
+</html>

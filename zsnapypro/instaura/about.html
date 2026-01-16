@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instaura - Who We Are</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        logo: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#D91F26',
+                            dark: '#030304',
+                            black: '#030304',
+                            card: '#111216',
+                            cardBlue: '#171C26',
+                            stroke: '#2D2D30',
+                            gray: '#F8F9FB',
+                            darkGray: '#1A1A1A',
+                            textGray: '#CCCCCC'
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
+                        'glow': '0 0 20px rgba(217, 31, 38, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FB;
+            color: #111;
+        }
+
+        /* Utils */
+        .text-glow {
+            text-shadow: 0 0 30px rgba(217, 31, 38, 0.2);
+        }
+
+        .nav-link {
+            position: relative;
+            color: #111;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #D91F26;
+        }
+
+        /* Card Hover Effects (Reused & Adapted) */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-hover:hover {
+            transform: scale(1.02) translateY(-5px);
+            border-color: #D91F26;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(217, 31, 38, 0.1);
+            z-index: 10;
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+    <!-- HEADER (Reused) -->
+    <header class="bg-white border-b border-gray-100 py-4 px-6 md:px-12 fixed w-full top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between">
+            <div class="flex-shrink-0 w-48 flex items-center">
+                <a href="index.html">
+                    <img src="../logo.png" alt="INSTAURA" class="h-8 w-auto object-contain">
+                </a>
+            </div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="verticals.html" class="nav-link">Verticals</a>
+                <a href="insights.html" class="nav-link">Insights</a>
+                <a href="#" class="nav-link text-brand-red font-bold">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="hidden md:flex flex-shrink-0 w-48 justify-end">
+                <a href="contact.html"
+                    class="bg-brand-red hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-colors shadow-lg shadow-red-100">Talk
+                    to YAS</a>
+            </div>
+            <button class="md:hidden text-2xl text-slate-900 w-10 h-10 flex items-center justify-center">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-32 pb-20 px-6">
+
+        <!-- HERO SECTION -->
+        <section class="max-w-7xl mx-auto mb-24 pt-10 animate-on-scroll">
+            <h1 class="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-none mb-6">
+                Who We Are. <span class="text-brand-red">Why We<br>Exist.</span>
+            </h1>
+            <p class="text-slate-600 text-lg leading-relaxed max-w-2xl mb-10">
+                Instaura is the first and only <span class="font-bold text-slate-900">Signal-Driven Consulting
+                    Firm</span>. We don't sell noise. We architect signal — the decisive basis for every real outcome.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="contact.html"
+                    class="bg-brand-red hover:bg-red-700 text-white px-8 py-3.5 rounded-full font-bold transition-transform hover:scale-105 shadow-lg shadow-red-100 inline-block text-center">
+                    Talk to YAS
+                </a>
+                <button
+                    class="bg-white border-2 border-slate-900 text-slate-900 hover:bg-slate-50 px-8 py-3.5 rounded-full font-bold transition-colors">
+                    Explore Our Story
+                </button>
+            </div>
+        </section>
+
+        <!-- PEDIGREE (Stats) -->
+        <section class="max-w-7xl mx-auto text-center mb-32 animate-on-scroll">
+            <h2 class="text-xl font-black text-slate-900 uppercase tracking-widest mb-12">PEDIGREE</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Stat 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+                    <div class="text-4xl font-black text-brand-red mb-2">18</div>
+                    <div class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2">Years</div>
+                    <div class="h-0.5 w-6 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-[10px] text-slate-400 font-medium">of Signal practice</p>
+                </div>
+                <!-- Stat 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+                    <div class="text-4xl font-black text-brand-red mb-2">2500+</div>
+                    <div class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2">Clients</div>
+                    <div class="h-0.5 w-6 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-[10px] text-slate-400 font-medium">across 6 continents</p>
+                </div>
+                <!-- Stat 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+                    <div class="text-4xl font-black text-brand-red mb-2">250+</div>
+                    <div class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2">Movements</div>
+                    <div class="h-0.5 w-6 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-[10px] text-slate-400 font-medium">breakthrough outcomes</p>
+                </div>
+                <!-- Stat 4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm card-hover">
+                    <div class="text-4xl font-black text-brand-red mb-2">$2B+</div>
+                    <div class="text-xs font-bold uppercase tracking-wider text-slate-900 mb-2">Moved</div>
+                    <div class="h-0.5 w-6 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-[10px] text-slate-400 font-medium">capital & value</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- OUR STORY -->
+        <section class="max-w-4xl mx-auto mb-32 animate-on-scroll">
+            <h2 class="text-3xl font-black text-center text-slate-900 mb-12">Our Story</h2>
+
+            <div class="bg-gray-50 rounded-3xl p-10 md:p-14">
+                <p class="text-slate-600 text-sm leading-8 mb-8">
+                    From a single founder's journey in 2007 to a global practice today, Instaura has always believed one
+                    thing: <span class="font-bold text-slate-900">signal creates movement, not slides.</span> Over 18
+                    years, we've moved $2B+ in capital, designed 250+ decisive movements, and guided founders through
+                    pivots, scale, and survival — across sectors and geographies.
+                </p>
+                <p class="text-slate-600 text-sm leading-8 mb-8">
+                    We remain rooted in clarity, driven by conviction, and designed for inevitability. That's our DNA —
+                    and your advantage.
+                </p>
+                <a href="#" class="text-brand-red font-bold text-sm hover:underline">Read Full Story <i
+                        class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+        </section>
+
+
+        <!-- PERFECT PARTNER -->
+        <section class="max-w-7xl mx-auto mb-32 animate-on-scroll">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black text-slate-900 mb-4">What Makes Us Your Perfect Partner</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">Four pillars that separate signal-driven consulting from
+                    traditional approaches.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 1 -->
+                <div class="bg-white rounded-3xl p-8 card-hover shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-lg flex items-center justify-center text-lg mb-6 shadow-md shadow-red-100">
+                        1</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Signal Architecture</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6 flex-grow">
+                        We pioneered it. The foundation behind capital, GTM, and strategy that actually moves markets.
+                    </p>
+                    <div class="h-0.5 w-12 bg-gray-200"></div>
+                </div>
+                <!-- 2 -->
+                <div class="bg-white rounded-3xl p-8 card-hover shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-lg flex items-center justify-center text-lg mb-6 shadow-md shadow-red-100">
+                        2</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">250+ Movements</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6 flex-grow">
+                        Not advice for slides. Architecture that turned into outcomes across sectors.
+                    </p>
+                    <div class="h-0.5 w-12 bg-gray-200"></div>
+                </div>
+                <!-- 3 -->
+                <div class="bg-white rounded-3xl p-8 card-hover shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-lg flex items-center justify-center text-lg mb-6 shadow-md shadow-red-100">
+                        3</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Clarity -> Movement</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6 flex-grow">
+                        We align boards, founders, teams — so decisions accelerate and belief compounds.
+                    </p>
+                    <div class="h-0.5 w-12 bg-gray-200"></div>
+                </div>
+                <!-- 4 -->
+                <div class="bg-white rounded-3xl p-8 card-hover shadow-sm border border-gray-100 flex flex-col h-full">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-lg flex items-center justify-center text-lg mb-6 shadow-md shadow-red-100">
+                        4</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Embedded, Not Distant</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6 flex-grow">
+                        We walk with you till the move lands. Precision over performance theater.
+                    </p>
+                    <div class="h-0.5 w-12 bg-gray-200"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPLORE PILLARS -->
+        <section class="max-w-7xl mx-auto mb-20">
+            <div class="flex justify-between items-end mb-10 max-w-7xl mx-auto px-4 md:px-0">
+                <h2 class="text-2xl font-bold text-slate-900">Explore the Pillars of Instaura</h2>
+                <a href="#" class="text-brand-red text-xs font-bold hover:underline">Back to Top</a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 card-hover">
+                    <p class="text-[10px] uppercase font-bold text-slate-400 mb-3">VISION + PHILOSOPHY + MISSION</p>
+                    <h3 class="text-sm font-bold text-slate-900 mb-3">Signal Is the Only Basis</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 leading-relaxed">How we see the world, and why
+                        'inevitability' is designed — not declared.</p>
+                    <a href="#" class="text-brand-red text-xs font-bold hover:underline">Explore -></a>
+                    <div class="h-px bg-gray-100 w-full mt-6"></div>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 card-hover">
+                    <p class="text-[10px] uppercase font-bold text-slate-400 mb-3">LEADERSHIP</p>
+                    <h3 class="text-sm font-bold text-slate-900 mb-3">Gaurav & Masmino Shah</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 leading-relaxed">Profiles, philosophy, founder quotes, and
+                        what makes their partnership inevitable.</p>
+                    <a href="#" class="text-brand-red text-xs font-bold hover:underline">Meet Leadership -></a>
+                    <div class="h-px bg-gray-100 w-full mt-6"></div>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 card-hover">
+                    <p class="text-[10px] uppercase font-bold text-slate-400 mb-3">YAS — TALK WITH YAS</p>
+                    <h3 class="text-sm font-bold text-slate-900 mb-3">Not a Bot. Strategic Infrastructure.</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 leading-relaxed">Signal trained AI for founders, teams,
+                        partners, and everyone who needs clarity.</p>
+                    <a href="#" class="text-brand-red text-xs font-bold hover:underline">Learn About Yas -></a>
+                    <div class="h-px bg-gray-100 w-full mt-6"></div>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 card-hover">
+                    <p class="text-[10px] uppercase font-bold text-slate-400 mb-3">MEDIA</p>
+                    <h3 class="text-sm font-bold text-slate-900 mb-3">Print + Digital + Television</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 leading-relaxed">Coverage and appearances — the outside
+                        world reading our signal.</p>
+                    <a href="#" class="text-brand-red text-xs font-bold hover:underline">Visit Media -></a>
+                    <div class="h-px bg-gray-100 w-full mt-6"></div>
+                </div>
+                <!-- Card 5 -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 card-hover">
+                    <p class="text-[10px] uppercase font-bold text-slate-400 mb-3">SOCIAL RESPONSIBILITY</p>
+                    <h3 class="text-sm font-bold text-slate-900 mb-3">Beyond Boardrooms</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 leading-relaxed">NPOs, NASSCOM, CII/FICCI, academic
+                        lectures — building ecosystems of clarity.</p>
+                    <a href="#" class="text-brand-red text-xs font-bold hover:underline">See Contributions -></a>
+                    <div class="h-px bg-gray-100 w-full mt-6"></div>
+                </div>
+                <!-- Card 6 -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 card-hover">
+                    <p class="text-[10px] uppercase font-bold text-slate-400 mb-3">CAREERS</p>
+                    <h3 class="text-sm font-bold text-slate-900 mb-3">Join the Movement</h3>
+                    <p class="text-[11px] text-slate-500 mb-6 leading-relaxed">Precision, clarity, movement. If that's
+                        you, you'll fit right in.</p>
+                    <a href="#" class="text-brand-red text-xs font-bold hover:underline">Open Roles -></a>
+                    <div class="h-px bg-gray-100 w-full mt-6"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INEVITABLE CTA -->
+        <section class="bg-black py-24 px-6 text-center">
+            <div class="max-w-4xl mx-auto animate-on-scroll">
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-6">
+                    We are not different. We are inevitable.
+                </h2>
+                <p class="text-brand-red font-bold text-lg mb-12">
+                    The world's first and only Signal-Driven Consulting Firm.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="contact.html"
+                        class="bg-brand-red hover:bg-red-700 text-white px-8 py-3.5 rounded-full font-bold transition-transform hover:scale-105 shadow-lg shadow-red-900/50 inline-block text-center">
+                        Talk to YAS
+                    </a>
+                    <a href="contact.html"
+                        class="bg-white text-slate-900 hover:bg-gray-200 px-8 py-3.5 rounded-full font-bold transition-colors shadow-lg inline-block text-center">
+                        Book a Signal Call
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHITE LEGAL STRIP -->
+        <section class="bg-white py-8 px-6 border-b border-gray-100">
+            <div
+                class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
+                <div class="mb-4 md:mb-0">&copy; 2026 Instaura Consulting</div>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-slate-900 transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-slate-900 transition-colors">Terms</a>
+                    <a href="#" class="hover:text-slate-900 transition-colors">Disclaimers</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER (Reused) -->
+    <footer id="contact" class="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-gray-900">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+                <div class="md:col-span-5 space-y-8">
+                    <a href="index.html" class="block">
+                        <img src="../logo.png" alt="INSTAURA" class="h-10 w-auto object-contain">
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">Strategic consulting firm specializing in
+                        signal intelligence and market-driven growth strategies.</p>
+                </div>
+                <!-- Links (Same as index.html) -->
+                <div class="hidden md:block md:col-span-1"></div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Services</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="services.html" class="hover:text-brand-red transition-colors">Signal
+                                Architecture</a></li>
+                        <li><a href="services.html" class="hover:text-brand-red transition-colors">GTM & Funnels</a>
+                        </li>
+                        <li><a href="services.html" class="hover:text-brand-red transition-colors">Fund Raising</a></li>
+                        <li><a href="services.html" class="hover:text-brand-red transition-colors">Strategy
+                                Consulting</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Insights</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="insights.html" class="hover:text-brand-red transition-colors">Signals That
+                                Close</a></li>
+                        <li><a href="insights.html" class="hover:text-brand-red transition-colors">The Signal Code</a>
+                        </li>
+                        <li><a href="insights.html" class="hover:text-brand-red transition-colors">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Company</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="about.html" class="hover:text-brand-red transition-colors">About INSTAURA</a></li>
+                        <li><a href="about.html" class="hover:text-brand-red transition-colors">Leadership</a></li>
+                        <li><a href="verticals.html" class="hover:text-brand-red transition-colors">Verticals</a></li>
+                        <li><a href="contact.html" class="hover:text-brand-red transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <div class="mb-4 md:mb-0">&copy; 2025 INSTAURA. All rights reserved.</div>
+                <div class="flex gap-8"><a href="#" class="hover:text-white transition-colors">Terms of Service</a><a
+                        href="#" class="hover:text-white transition-colors">Privacy Policy</a><a href="#"
+                        class="hover:text-white transition-colors">Cookie Policy</a><a href="#"
+                        class="hover:text-white transition-colors">Refund Policy</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Logic (Same as index.html) -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col pt-24 px-6 space-y-6">
+        <a href="index.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">Home</a>
+        <a href="services.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">Services</a>
+        <a href="verticals.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">Verticals</a>
+        <a href="insights.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">Insights</a>
+        <a href="about.html" class="text-brand-red text-2xl font-bold border-b border-gray-100 pb-4">About</a>
+        <a href="contact.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">Contact</a>
+        <a href="contact.html"
+            class="bg-brand-red text-white py-4 rounded-full font-bold text-lg shadow-lg text-center">Talk to
+            YAS</a>
+    </div>
+    <script>
+        const menuBtn = document.querySelector('button .fa-bars').parentElement;
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) { mobileMenu.classList.remove('translate-x-full'); mobileMenu.classList.add('translate-x-0'); menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; }
+            else { mobileMenu.classList.remove('translate-x-0'); mobileMenu.classList.add('translate-x-full'); menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; }
+        });
+        document.querySelectorAll('#mobile-menu a').forEach(link => { link.addEventListener('click', () => { isMenuOpen = false; mobileMenu.classList.remove('translate-x-0'); mobileMenu.classList.add('translate-x-full'); menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; }); });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('animate-active'); observer.unobserve(entry.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>

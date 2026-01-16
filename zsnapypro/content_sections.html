@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal - proven Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#D91F26',
+                            dark: '#030304',
+                            gray: '#F8F9FB',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
+                        'glow': '0 20px 50px -10px rgba(217, 31, 38, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8F9FB;
+            color: #111827;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            border-color: #D91F26;
+            box-shadow: 0 25px 50px -12px rgba(217, 31, 38, 0.25);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen py-20">
+
+    <main class="max-w-7xl mx-auto px-6 space-y-32">
+
+        <!-- SECTION 1: Proven Signal Architecture -->
+        <section class="text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Proven Signal Architecture</h2>
+            <p class="text-slate-600 max-w-3xl mx-auto mb-16 leading-relaxed">
+                <span class="font-bold text-slate-900">Instaura is the first and only Signal-Driven Consulting
+                    Firm.</span> We don't sell slides or noise. We architect signal — the decisive basis of every
+                outcome.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-card card-hover">
+                    <div class="text-5xl font-black text-brand-red mb-2">18</div>
+                    <div class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2">Years</div>
+                    <div class="h-1 w-8 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-xs text-slate-400 font-medium">of Signal practice</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-card card-hover">
+                    <div class="text-5xl font-black text-brand-red mb-2">2500+</div>
+                    <div class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2">Clients</div>
+                    <div class="h-1 w-8 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-xs text-slate-400 font-medium">across 6 continents</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-card card-hover">
+                    <div class="text-5xl font-black text-brand-red mb-2">250+</div>
+                    <div class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2">Movements</div>
+                    <div class="h-1 w-8 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-xs text-slate-400 font-medium">breakthrough outcomes</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-card card-hover">
+                    <div class="text-5xl font-black text-brand-red mb-2">$2B+</div>
+                    <div class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2">Moved</div>
+                    <div class="h-1 w-8 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-xs text-slate-400 font-medium">capital & value</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: What We Do -->
+        <section>
+            <div class="text-center mb-16">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">What We Do</h2>
+                    <a href="#" class="text-brand-red font-bold text-sm hover:underline flex items-center gap-1">
+                        View All Services
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    Signal-driven services that turn belief into movement across every stage of growth.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform">
+                        1</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Signal Architecture</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Architect belief before you move.</p>
+                    <div class="h-1 w-12 bg-slate-100 group-hover:bg-brand-red/20 transition-colors rounded-full"></div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform">
+                        2</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Fund Raising</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Capital follows conviction, not slides.</p>
+                    <div class="h-1 w-12 bg-slate-100 group-hover:bg-brand-red/20 transition-colors rounded-full"></div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform">
+                        3</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">GTM & Funnels</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Growth when the signal is clear.</p>
+                    <div class="h-1 w-12 bg-slate-100 group-hover:bg-brand-red/20 transition-colors rounded-full"></div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform">
+                        4</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Strategy Consulting</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Clarity that becomes movement.</p>
+                    <div class="h-1 w-12 bg-slate-100 group-hover:bg-brand-red/20 transition-colors rounded-full"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 3: Market Verticals -->
+        <section>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Market Verticals</h2>
+                <p class="text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    Signal-driven expertise across <span class="font-bold text-slate-900">key market verticals</span>.
+                    Every industry moves differently. We architect the right signal for yours.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Vertical 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform text-sm">
+                        1</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Technology</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">SaaS, Cloud, Data, and more</p>
+                    <div class="h-1 w-full bg-slate-100 mt-auto">
+                        <div class="h-full w-0 group-hover:w-full bg-brand-red transition-all duration-500"></div>
+                    </div>
+                </div>
+
+                <!-- Vertical 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform text-sm">
+                        2</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Consumer Products</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">D2C, Omnichannel, Marketplaces, and more</p>
+                    <div class="h-1 w-full bg-slate-100 mt-auto">
+                        <div class="h-full w-0 group-hover:w-full bg-brand-red transition-all duration-500"></div>
+                    </div>
+                </div>
+
+                <!-- Vertical 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform text-sm">
+                        3</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Healthcare & Pharma</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">HealthTech, Diagnostics, Providers, and more
+                    </p>
+                    <div class="h-1 w-full bg-slate-100 mt-auto">
+                        <div class="h-full w-0 group-hover:w-full bg-brand-red transition-all duration-500"></div>
+                    </div>
+                </div>
+
+                <!-- Vertical 4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform text-sm">
+                        4</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">DeepTech & AI</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">ML, Edge, Robotics, and more</p>
+                    <div class="h-1 w-full bg-slate-100 mt-auto">
+                        <div class="h-full w-0 group-hover:w-full bg-brand-red transition-all duration-500"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

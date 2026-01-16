@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instaura - Contact</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        logo: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#D91F26',
+                            dark: '#030304',
+                            black: '#030304',
+                            card: '#111216',
+                            cardBlue: '#171C26',
+                            stroke: '#2D2D30',
+                            gray: '#F8F9FB',
+                            darkGray: '#1A1A1A',
+                            textGray: '#CCCCCC'
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
+                        'glow': '0 0 20px rgba(217, 31, 38, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FB;
+            color: #111;
+        }
+
+        /* Utils */
+        .text-glow {
+            text-shadow: 0 0 30px rgba(217, 31, 38, 0.2);
+        }
+
+        .nav-link {
+            position: relative;
+            color: #111;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #D91F26;
+        }
+
+        /* Card Hover Effects (Reused & Adapted) */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-hover:hover {
+            transform: scale(1.02) translateY(-5px);
+            border-color: #D91F26;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(217, 31, 38, 0.1);
+            z-index: 10;
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Form Input Styles */
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #111;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #D91F26;
+            box-shadow: 0 0 0 3px rgba(217, 31, 38, 0.1);
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+    <!-- HEADER (Reused) -->
+    <header class="bg-white border-b border-gray-100 py-4 px-6 md:px-12 fixed w-full top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between">
+            <div class="flex-shrink-0 w-48 flex items-center">
+                <a href="index.html">
+                    <img src="../logo.png" alt="INSTAURA" class="h-8 w-auto object-contain">
+                </a>
+            </div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="verticals.html" class="nav-link">Verticals</a>
+                <a href="insights.html" class="nav-link">Insights</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="#" class="nav-link text-brand-red font-bold">Contact</a>
+            </nav>
+            <div class="hidden md:flex flex-shrink-0 w-48 justify-end">
+                <a href="#"
+                    class="bg-brand-red hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-colors shadow-lg shadow-red-100">Talk
+                    to YAS</a>
+            </div>
+            <button class="md:hidden text-2xl text-slate-900 w-10 h-10 flex items-center justify-center">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="pt-20"> <!-- Reduced pt since hero is dark and full width -->
+
+        <!-- DARK HERO -->
+        <section class="bg-[#111111] py-24 px-6 text-center">
+            <div class="max-w-4xl mx-auto animate-on-scroll">
+                <h1 class="text-4xl md:text-5xl font-black text-white mb-6">
+                    Start Your <span class="text-brand-red">Signal Journey</span>
+                </h1>
+                <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+                    Ready to transform market insights into strategic advantage? Let's discuss how our signal
+                    Intelligence can accelerate your growth.
+                </p>
+            </div>
+        </section>
+
+        <!-- MAIN GRID SECTION -->
+        <section class="max-w-6xl mx-auto px-6 -mt-10 mb-24 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-8">
+
+                <!-- LEFT COLUMN: TALK TO YAS -->
+                <div class="space-y-6">
+                    <!-- YAS Card -->
+                    <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 animate-on-scroll">
+                        <div class="flex items-start gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 bg-brand-red rounded-full flex items-center justify-center text-white text-xl shadow-lg shadow-red-100 flex-shrink-0">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900">Talk to YAS</h3>
+                                <p class="text-xs text-slate-500 font-medium">Your Strategic Intelligence Assistant</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Get instant answers to your strategic questions and explore how our signal methodology can
+                            transform your business approach.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-6">
+                            YAS combines advanced AI with real-time market intelligence to deliver actionable insights
+                            for strategic decision-making. Whether you need market analysis, competitive intelligence,
+                            or growth strategy guidance, our assistant provides data-driven recommendations tailored to
+                            your business needs.
+                        </p>
+
+                        <div class="bg-yellow-50 border border-yellow-100 rounded-lg p-3 mb-6">
+                            <p class="text-[10px] text-yellow-800 font-medium flex items-start gap-2">
+                                <i class="fa-solid fa-lightbulb mt-0.5"></i>
+                                Perfect for Market research, competitive analysis, strategic planning, and business
+                                intelligence
+                            </p>
+                        </div>
+
+                        <button
+                            class="w-full bg-brand-red hover:bg-red-700 text-white py-3 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-red-100 mb-8 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-comments"></i> Start Conversation with YAS
+                        </button>
+
+                        <h4 class="text-sm font-bold text-slate-900 mb-4">Quick Contact Options</h4>
+
+                        <!-- WhatsApp -->
+                        <div
+                            class="border border-gray-200 rounded-lg p-3 flex items-center justify-between mb-3 hover:border-green-500 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-900">WhatsApp Channel</p>
+                                    <p class="text-[10px] text-slate-500">Quick questions and consultations</p>
+                                </div>
+                            </div>
+                            <button
+                                class="text-[10px] font-bold text-brand-red bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded transition-colors">Connect</button>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="border border-gray-200 rounded-lg p-3 hover:border-brand-red transition-colors">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-red-100 text-brand-red flex items-center justify-center text-sm">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-900">Email</p>
+                                    <p class="text-[10px] text-slate-500">Select department and send email</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <select
+                                    class="flex-grow text-xs border-gray-200 rounded px-2 py-1.5 bg-gray-50 focus:outline-none focus:border-brand-red">
+                                    <option>General Information</option>
+                                    <option>Sales</option>
+                                    <option>Support</option>
+                                </select>
+                                <button
+                                    class="text-[10px] font-bold text-white bg-brand-red hover:bg-red-700 px-4 py-1.5 rounded transition-colors">Send</button>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-2">Email: insights@instaura.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: CONTACT FORM -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 animate-on-scroll">
+                    <h3 class="text-xl font-bold text-slate-900 mb-8">Get In Touch</h3>
+                    <form>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="form-label">First Name</label>
+                                <input type="text" placeholder="Enter your first name" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">Last Name</label>
+                                <input type="text" placeholder="Enter your last name" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Email</label>
+                            <input type="email" placeholder="Enter your email address" class="form-input">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Company (Optional)</label>
+                            <input type="text" placeholder="Your company name" class="form-input">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Service Interest (Optional)</label>
+                            <select class="form-input bg-white">
+                                <option>Select a service</option>
+                                <option>Signal Architecture</option>
+                                <option>Fund Raising</option>
+                                <option>GTM & Funnels</option>
+                                <option>Strategy Consulting</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-8">
+                            <label class="form-label">Message</label>
+                            <textarea placeholder="Tell us about your strategic challenges..."
+                                class="form-input h-32 resize-none"></textarea>
+                        </div>
+
+                        <button type="button"
+                            class="w-full bg-brand-red hover:bg-red-700 text-white py-3.5 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-red-100 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- GLOBAL PRESENCE -->
+        <section class="bg-gray-50 py-16 text-center border-t border-gray-200">
+            <div class="animate-on-scroll">
+                <h2 class="text-xl font-bold text-brand-red mb-4">Our Global Presence</h2>
+                <p class="text-sm font-bold text-slate-800">
+                    India • Southeast Asia • Middle East • USA
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER (Reused with Links Updated) -->
+    <footer id="contact" class="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-gray-900">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+                <div class="md:col-span-5 space-y-8">
+                    <a href="index.html" class="block">
+                        <img src="../logo.png" alt="INSTAURA" class="h-10 w-auto object-contain">
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">Strategic consulting firm specializing in
+                        signal intelligence and market-driven growth strategies.</p>
+                </div>
+                <!-- Links -->
+                <div class="hidden md:block md:col-span-1"></div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Services</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="services.html" class="hover:text-brand-red transition-colors">Signal
+                                Architecture</a></li>
+                        <li><a href="services.html" class="hover:text-brand-red transition-colors">GTM & Funnels</a>
+                        </li>
+                        <li><a href="services.html" class="hover:text-brand-red transition-colors">Fund Raising</a></li>
+                        <li><a href="services.html" class="hover:text-brand-red transition-colors">Strategy
+                                Consulting</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Insights</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="insights.html" class="hover:text-brand-red transition-colors">Signals That
+                                Close</a></li>
+                        <li><a href="insights.html" class="hover:text-brand-red transition-colors">The Signal Code</a>
+                        </li>
+                        <li><a href="insights.html" class="hover:text-brand-red transition-colors">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Company</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="about.html" class="hover:text-brand-red transition-colors">About INSTAURA</a></li>
+                        <li><a href="about.html" class="hover:text-brand-red transition-colors">Leadership</a></li>
+                        <li><a href="verticals.html" class="hover:text-brand-red transition-colors">Verticals</a></li>
+                        <li><a href="contact.html" class="hover:text-brand-red transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <div class="mb-4 md:mb-0">&copy; 2025 INSTAURA. All rights reserved.</div>
+                <div class="flex gap-8"><a href="#" class="hover:text-white transition-colors">Terms of Service</a><a
+                        href="#" class="hover:text-white transition-colors">Privacy Policy</a><a href="#"
+                        class="hover:text-white transition-colors">Cookie Policy</a><a href="#"
+                        class="hover:text-white transition-colors">Refund Policy</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Logic (Same as index.html) -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col pt-24 px-6 space-y-6">
+        <a href="index.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">Home</a>
+        <a href="services.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">Services</a>
+        <a href="verticals.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">Verticals</a>
+        <a href="insights.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">Insights</a>
+        <a href="about.html" class="text-2xl font-bold text-slate-900 border-b border-gray-100 pb-4">About</a>
+        <a href="#" class="text-brand-red text-2xl font-bold border-b border-gray-100 pb-4">Contact</a>
+        <a href="contact.html"
+            class="bg-brand-red text-white py-4 rounded-full font-bold text-lg shadow-lg text-center">Talk to
+            YAS</a>
+    </div>
+    <script>
+        const menuBtn = document.querySelector('button .fa-bars').parentElement;
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) { mobileMenu.classList.remove('translate-x-full'); mobileMenu.classList.add('translate-x-0'); menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; }
+            else { mobileMenu.classList.remove('translate-x-0'); mobileMenu.classList.add('translate-x-full'); menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; }
+        });
+        document.querySelectorAll('#mobile-menu a').forEach(link => { link.addEventListener('click', () => { isMenuOpen = false; mobileMenu.classList.remove('translate-x-0'); mobileMenu.classList.add('translate-x-full'); menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; }); });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('animate-active'); observer.unobserve(entry.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>

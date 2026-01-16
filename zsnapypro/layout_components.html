@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instaura - Layout Components</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Oswald:wght@500&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        logo: ['Oswald', 'sans-serif'], // Approximate for the logo font
+                    },
+                    colors: {
+                        brand: {
+                            red: '#D91F26',
+                            black: '#111111',
+                            darkGray: '#1A1A1A',
+                            textGray: '#CCCCCC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Logo mimicry */
+        .logo-text {
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+        }
+
+        /* Reusable Header Styles */
+        .nav-link {
+            position: relative;
+            color: #111;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #D91F26;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col justify-between">
+
+    <!-- ========================================== -->
+    <!-- HEADER COMPONENT -->
+    <!-- ========================================== -->
+    <header class="bg-white border-b border-gray-100 py-4 px-6 md:px-12 fixed w-full top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between">
+
+            <!-- Logo Section - Maintaining Ratio -->
+            <div class="flex-shrink-0 w-48 flex items-center">
+                <!-- Placeholder for logo image as requested to leave space -->
+                <!-- Assuming a wide logo ratio based on screenshot -->
+                <!-- <img src="path/to/logo.png" alt="Instaura" class="h-8 w-auto"> -->
+                <div class="logo-text text-2xl uppercase tracking-widest text-slate-900 flex items-center gap-1">
+                    I N S T <span class="text-brand-red">A</span> U R A
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-10">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Services</a>
+                <a href="#" class="nav-link">Verticals</a>
+                <a href="#" class="nav-link">Insights</a>
+                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <div class="flex-shrink-0 w-48 flex justify-end">
+                <a href="#"
+                    class="bg-brand-red hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-colors shadow-lg shadow-red-100">
+                    Talk to YAS
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button (Optional/Placeholder) -->
+            <button class="md:hidden text-2xl text-slate-900">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+
+    <!-- Spacer for fixed header -->
+    <div class="h-24"></div>
+    <div class="p-10 text-center text-gray-400">Content goes here...</div>
+
+
+    <!-- ========================================== -->
+    <!-- FOOTER COMPONENT -->
+    <!-- ========================================== -->
+    <footer class="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-gray-900">
+        <div class="max-w-[1400px] mx-auto">
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+
+                <!-- Brand Column -->
+                <div class="md:col-span-5 space-y-8">
+                    <!-- Footer Logo -->
+                    <div class="logo-text text-3xl uppercase tracking-widest text-brand-red flex items-center gap-1">
+                        I N S T A U R A
+                    </div>
+
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                        Strategic consulting firm specializing in signal intelligence and market-driven growth
+                        strategies.
+                    </p>
+
+                    <div class="flex gap-6 text-gray-400">
+                        <a href="#" class="hover:text-white transition-colors text-xl"><i
+                                class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="hover:text-white transition-colors text-xl"><i
+                                class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="hover:text-white transition-colors text-xl"><i
+                                class="fa-regular fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <!-- Spacer Column -->
+                <div class="hidden md:block md:col-span-1"></div>
+
+                <!-- Links Column 1: Services -->
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Services</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Signal Architecture</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">GTM & Funnels</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Fund Raising</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Strategy Consulting</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Column 2: Insights -->
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Insights</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Signals That Close</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">The Signal Code</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Case Studies</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Column 3: Company -->
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Company</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-red transition-colors">About INSTAURA</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Leadership</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Verticals</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Bar -->
+            <div
+                class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <div class="mb-4 md:mb-0">
+                    &copy; 2025 INSTAURA. All rights reserved.
+                </div>
+
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookie Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Refund Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+
+</html>

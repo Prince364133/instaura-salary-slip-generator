@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instaura - Signal Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@500&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        logo: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#D91F26',
+                            dark: '#030304',
+                            black: '#030304',
+                            card: '#111216',
+                            cardBlue: '#171C26',
+                            stroke: '#2D2D30',
+                            gray: '#F8F9FB',
+                            darkGray: '#1A1A1A',
+                            textGray: '#CCCCCC'
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
+                        'glow': '0 0 20px rgba(217, 31, 38, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Typography utils */
+        .text-glow {
+            text-shadow: 0 0 40px rgba(217, 31, 38, 0.3);
+        }
+
+        .logo-text {
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+        }
+
+        /* Nav link hover */
+        .nav-link {
+            position: relative;
+            color: #111;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #D91F26;
+        }
+
+        /* Background Curves for Hero */
+        .bg-curves {
+            background-image:
+                radial-gradient(circle at 70% 80%, rgba(217, 31, 38, 0.15) 0%, transparent 40%),
+                url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 1440 800' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-100 600 C 200 600, 500 800, 800 200' stroke='%23D91F26' stroke-width='1' stroke-opacity='0.2' fill='none'/%3E%3Cpath d='M-100 700 C 300 700, 600 900, 900 100' stroke='%23D91F26' stroke-width='1' stroke-opacity='0.1' fill='none'/%3E%3Cpath d='M1000 800 C 1200 600, 1300 400, 1500 0' stroke='%23D91F26' stroke-width='1' stroke-opacity='0.2' fill='none'/%3E%3Cpath d='M900 800 C 1100 500, 1200 300, 1400 -100' stroke='%23D91F26' stroke-width='1' stroke-opacity='0.1' fill='none'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Glass Card Effect */
+        .glass-card {
+            background: rgba(17, 18, 22, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Light Card Hover Effect */
+        .card-hover {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            border-color: #D91F26;
+            box-shadow: 0 20px 40px -10px rgba(217, 31, 38, 0.15);
+        }
+
+        /* Dark Card Hover Effect */
+        .card-hover-dark {
+            transition: all 0.3s ease;
+            border: 1px solid #1f2937;
+        }
+
+        .card-hover-dark:hover {
+            transform: translateY(-5px);
+            border-color: #D91F26;
+            background-color: #1a202c;
+            box-shadow: 0 20px 40px -10px rgba(217, 31, 38, 0.2);
+        }
+
+        /* Group hover animations for verticals */
+        .group:hover .group-hover\:w-full {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+    <!-- ========================================== -->
+    <!-- HEADER (Fixed) -->
+    <!-- ========================================== -->
+    <header class="bg-white border-b border-gray-100 py-4 px-6 md:px-12 fixed w-full top-0 z-50">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between">
+
+            <!-- Logo -->
+            <div class="flex-shrink-0 w-48 flex items-center">
+                <div class="logo-text text-2xl uppercase tracking-widest text-slate-900 flex items-center gap-1">
+                    I N S T <span class="text-brand-red">A</span> U R A
+                </div>
+            </div>
+
+            <!-- Nav -->
+            <nav class="hidden md:flex items-center gap-10">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#verticals" class="nav-link">Verticals</a>
+                <a href="#insights" class="nav-link">Insights</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- CTA -->
+            <div class="flex-shrink-0 w-48 flex justify-end">
+                <a href="#"
+                    class="bg-brand-red hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-colors shadow-lg shadow-red-100">
+                    Talk to YAS
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-2xl text-slate-900">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+
+    <!-- ========================================== -->
+    <!-- HERO SECTION -->
+    <!-- ========================================== -->
+    <section class="bg-[#030304] bg-curves relative min-h-screen flex items-center justify-center pt-24 pb-20">
+        <div class="w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <!-- Left -->
+            <div class="space-y-8">
+                <h1 class="text-6xl md:text-8xl font-black tracking-tight leading-[0.9] text-white">
+                    Signal is the<br>
+                    <span class="text-brand-red text-glow">Only Basis.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 font-normal leading-relaxed max-w-2xl">
+                    Every real outcome — capital, clarity, growth, scale — begins with one thing: <span
+                        class="font-bold text-white">Signal. Not noise.</span> We build. You move.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <button
+                        class="bg-brand-red hover:bg-red-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-red-900/20">
+                        Talk to YAS
+                    </button>
+                    <button
+                        class="bg-[#1A1B1E] hover:bg-[#25262A] border border-gray-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all hover:border-gray-500">
+                        Book a Signal Call
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Interactive Card -->
+            <div class="relative">
+                <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-lg mx-auto lg:ml-auto">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="font-bold text-white text-lg">Your First Move</span>
+                    </div>
+                    <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+                        Ask Yas anything — services, case studies, GTM models, capital readiness, or to book a Signal
+                        Call.
+                    </p>
+                    <button
+                        class="w-full bg-brand-red hover:bg-red-700 text-white p-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-colors group">
+                        Start the Conversation
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="group-hover:translate-x-1 transition-transform">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                    <div class="mt-8 flex items-center justify-between border-t border-gray-800 pt-6">
+                        <span class="text-sm text-gray-500 font-medium">Signal Strength</span>
+                        <span class="text-sm text-green-500 font-bold">Strong</span>
+                    </div>
+                    <div class="flex gap-1 mt-2">
+                        <div class="h-1.5 w-8 rounded-full bg-brand-red"></div>
+                        <div class="h-1.5 w-8 rounded-full bg-brand-red"></div>
+                        <div class="h-1.5 w-8 rounded-full bg-brand-red"></div>
+                        <div class="h-1.5 w-8 rounded-full bg-brand-red"></div>
+                        <div class="h-1.5 w-8 rounded-full bg-gray-700"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-center opacity-50 pointer-events-none">
+            <span class="text-xs uppercase tracking-widest text-gray-500 mb-2 block">Scroll to explore</span>
+            <svg class="w-6 h-6 mx-auto text-white animate-bounce" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- STATS SECTION -->
+    <!-- ========================================== -->
+    <section class="bg-brand-gray py-20 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Proven Signal Architecture</h2>
+            <p class="text-slate-600 max-w-3xl mx-auto mb-16 leading-relaxed">
+                <span class="font-bold text-slate-900">Instaura is the first and only Signal-Driven Consulting
+                    Firm.</span> We don't sell slides or noise. We architect signal — the decisive basis of every
+                outcome.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Stat 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-card card-hover">
+                    <div class="text-5xl font-black text-brand-red mb-2">18</div>
+                    <div class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2">Years</div>
+                    <div class="h-1 w-8 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-xs text-slate-400 font-medium">of Signal practice</p>
+                </div>
+                <!-- Stat 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-card card-hover">
+                    <div class="text-5xl font-black text-brand-red mb-2">2500+</div>
+                    <div class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2">Clients</div>
+                    <div class="h-1 w-8 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-xs text-slate-400 font-medium">across 6 continents</p>
+                </div>
+                <!-- Stat 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-card card-hover">
+                    <div class="text-5xl font-black text-brand-red mb-2">250+</div>
+                    <div class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2">Movements</div>
+                    <div class="h-1 w-8 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-xs text-slate-400 font-medium">breakthrough outcomes</p>
+                </div>
+                <!-- Stat 4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-card card-hover">
+                    <div class="text-5xl font-black text-brand-red mb-2">$2B+</div>
+                    <div class="text-sm font-bold uppercase tracking-wider text-slate-900 mb-2">Moved</div>
+                    <div class="h-1 w-8 bg-brand-red/20 mx-auto rounded-full mb-2"></div>
+                    <p class="text-xs text-slate-400 font-medium">capital & value</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- SERVICES SECTION -->
+    <!-- ========================================== -->
+    <section id="services" class="bg-brand-gray pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">What We Do</h2>
+                    <a href="#" class="text-brand-red font-bold text-sm hover:underline flex items-center gap-1">
+                        View All Services
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    Signal-driven services that turn belief into movement across every stage of growth.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform">
+                        1</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Signal Architecture</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Architect belief before you move.</p>
+                    <div class="h-1 w-12 bg-slate-100 group-hover:bg-brand-red/20 transition-colors rounded-full"></div>
+                </div>
+                <!-- Service 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform">
+                        2</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Fund Raising</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Capital follows conviction, not slides.</p>
+                    <div class="h-1 w-12 bg-slate-100 group-hover:bg-brand-red/20 transition-colors rounded-full"></div>
+                </div>
+                <!-- Service 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform">
+                        3</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">GTM & Funnels</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Growth when the signal is clear.</p>
+                    <div class="h-1 w-12 bg-slate-100 group-hover:bg-brand-red/20 transition-colors rounded-full"></div>
+                </div>
+                <!-- Service 4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform">
+                        4</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Strategy Consulting</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">Clarity that becomes movement.</p>
+                    <div class="h-1 w-12 bg-slate-100 group-hover:bg-brand-red/20 transition-colors rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- VERTICALS SECTION -->
+    <!-- ========================================== -->
+    <section id="verticals" class="bg-brand-gray pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Market Verticals</h2>
+                <p class="text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    Signal-driven expertise across <span class="font-bold text-slate-900">key market verticals</span>.
+                    Every industry moves differently. We architect the right signal for yours.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- V1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform text-sm">
+                        1</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Technology</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">SaaS, Cloud, Data, and more</p>
+                    <div class="h-1 w-full bg-slate-100 mt-auto">
+                        <div class="h-full w-0 group-hover:w-full bg-brand-red transition-all duration-500"></div>
+                    </div>
+                </div>
+                <!-- V2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform text-sm">
+                        2</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Consumer Products</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">D2C, Omnichannel, Marketplaces, and more</p>
+                    <div class="h-1 w-full bg-slate-100 mt-auto">
+                        <div class="h-full w-0 group-hover:w-full bg-brand-red transition-all duration-500"></div>
+                    </div>
+                </div>
+                <!-- V3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform text-sm">
+                        3</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">Healthcare & Pharma</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">HealthTech, Diagnostics, Providers, and more
+                    </p>
+                    <div class="h-1 w-full bg-slate-100 mt-auto">
+                        <div class="h-full w-0 group-hover:w-full bg-brand-red transition-all duration-500"></div>
+                    </div>
+                </div>
+                <!-- V4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-soft card-hover group">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center mb-6 shadow-lg shadow-red-200 group-hover:scale-110 transition-transform text-sm">
+                        4</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-3">DeepTech & AI</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-6">ML, Edge, Robotics, and more</p>
+                    <div class="h-1 w-full bg-slate-100 mt-auto">
+                        <div class="h-full w-0 group-hover:w-full bg-brand-red transition-all duration-500"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- INSIGHTS SECTION -->
+    <!-- ========================================== -->
+    <section id="insights" class="bg-[#11161F] py-24 px-6 text-white border-b border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-extrabold mb-4 flex items-center justify-center gap-2">
+                    Signal Insights
+                    <a href="#" class="text-brand-red text-sm font-bold flex items-center hover:underline ml-2">
+                        Enter Insights Hub <span class="ml-1">→</span>
+                    </a>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm">
+                    Deep dives, case studies, and frameworks from the world's first signal-driven knowledge hub.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Insight 1 -->
+                <div
+                    class="bg-brand-cardBlue p-10 rounded-2xl card-hover-dark group cursor-pointer relative overflow-hidden">
+                    <div
+                        class="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center font-bold text-white mb-6 shadow-lg shadow-red-900/50">
+                        A</div>
+                    <h3 class="text-xl font-bold mb-3">Clarity Series</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Field notes from real Signal Calls.</p>
+                </div>
+                <!-- Insight 2 -->
+                <div
+                    class="bg-brand-cardBlue p-10 rounded-2xl card-hover-dark group cursor-pointer relative overflow-hidden">
+                    <div
+                        class="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center font-bold text-white mb-6 shadow-lg shadow-red-900/50">
+                        B</div>
+                    <h3 class="text-xl font-bold mb-3">White Papers</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Deep dives on capital, GTM, and strategy.</p>
+                </div>
+                <!-- Insight 3 -->
+                <div
+                    class="bg-brand-cardBlue p-10 rounded-2xl card-hover-dark group cursor-pointer relative overflow-hidden">
+                    <div
+                        class="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center font-bold text-white mb-6 shadow-lg shadow-red-900/50">
+                        C</div>
+                    <h3 class="text-xl font-bold mb-3">Case Studies</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Radical, signal-rich movements across sectors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- WHY SIGNAL WORKS -->
+    <!-- ========================================== -->
+    <section class="bg-gray-50 py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Why Signal Works</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto text-sm">
+                    Signal is the foundation of every meaningful movement. Here's how it transforms outcomes.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Why 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm card-hover">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white rounded-lg flex items-center justify-center font-bold mb-6 shadow-md shadow-red-200">
+                        1</div>
+                    <h4 class="font-bold text-slate-900 mb-2">Belief sets price</h4>
+                    <p class="text-slate-500 text-xs mb-6 leading-relaxed">Signal lifts multiples and clears terms.</p>
+                    <div class="h-1 w-12 bg-gray-200 rounded-full"></div>
+                </div>
+                <!-- Why 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm card-hover">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white rounded-lg flex items-center justify-center font-bold mb-6 shadow-md shadow-red-200">
+                        2</div>
+                    <h4 class="font-bold text-slate-900 mb-2">Clarity compresses time</h4>
+                    <p class="text-slate-500 text-xs mb-6 leading-relaxed">Sequencing and calibration cut cycles.</p>
+                    <div class="h-1 w-12 bg-gray-200 rounded-full"></div>
+                </div>
+                <!-- Why 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm card-hover">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white rounded-lg flex items-center justify-center font-bold mb-6 shadow-md shadow-red-200">
+                        3</div>
+                    <h4 class="font-bold text-slate-900 mb-2">Signal raises WTP</h4>
+                    <p class="text-slate-500 text-xs mb-6 leading-relaxed">Customers pay more when belief is clear.</p>
+                    <div class="h-1 w-12 bg-gray-200 rounded-full"></div>
+                </div>
+                <!-- Why 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm card-hover">
+                    <div
+                        class="w-10 h-10 bg-brand-red text-white rounded-lg flex items-center justify-center font-bold mb-6 shadow-md shadow-red-200">
+                        4</div>
+                    <h4 class="font-bold text-slate-900 mb-2">Being chosen</h4>
+                    <p class="text-slate-500 text-xs mb-6 leading-relaxed">Signal turns selling into being chosen.</p>
+                    <div class="h-1 w-12 bg-gray-200 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- YAS SECTION -->
+    <!-- ========================================== -->
+    <section class="bg-black py-24 px-6 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+            <!-- Text -->
+            <div class="flex-1 space-y-8">
+                <div
+                    class="inline-block px-3 py-1 border border-brand-red text-brand-red text-[10px] font-bold rounded uppercase tracking-wider bg-brand-red/10">
+                    YAS + Signal AI
+                </div>
+                <h2 class="text-5xl font-black leading-tight tracking-tight">
+                    YAS — Your <span class="text-brand-red">First Move</span>
+                </h2>
+                <p class="text-gray-400 text-sm max-w-lg leading-relaxed font-normal">
+                    Not a chatbot. A signal-trained interface to how Instaura thinks, works, and moves. Ask Yas about
+                    services, outcomes, GTM models, capital readiness — or to book a Signal Call.
+                </p>
+                <div class="flex gap-4 pt-2">
+                    <button
+                        class="bg-brand-red hover:bg-red-700 text-white px-8 py-3 rounded-full font-bold text-sm transition-transform hover:scale-105 shadow-lg shadow-red-900/30">
+                        Talk to YAS
+                    </button>
+                    <button
+                        class="bg-white text-slate-900 hover:bg-gray-200 px-8 py-3 rounded-full font-bold text-sm transition-colors">
+                        Enter Insights
+                    </button>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="flex-1 w-full max-w-xl">
+                <div class="bg-[#111216] border border-gray-800 rounded-2xl p-8 shadow-2xl relative">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-2.5 h-2.5 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                        <span class="text-xs font-bold text-white uppercase tracking-wide">Live Preview</span>
+                    </div>
+                    <div class="space-y-6">
+                        <!-- Message -->
+                        <div class="flex gap-4">
+                            <div
+                                class="bg-[#1A1D24] p-4 rounded-2xl rounded-tl-none border border-gray-800 max-w-[85%] text-sm font-medium text-gray-200 leading-relaxed shadow-lg">
+                                "Hi! Yas, are we signal-ready for a US enterprise GTM?"
+                            </div>
+                        </div>
+                        <!-- Reply -->
+                        <div class="flex gap-4">
+                            <div
+                                class="bg-[#1A1D24] p-4 rounded-2xl rounded-tl-none border border-gray-800 max-w-[90%] text-sm font-medium text-gray-200 leading-relaxed shadow-lg">
+                                "Let's run a 3-minute diagnostic. If the buyer signal is weak, we'll fix that first."
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="mt-8 pt-6 border-t border-gray-800/50 flex justify-between items-center text-[10px] text-gray-500">
+                        <span class="font-mono">Powered by Signal Architecture</span>
+                        <div class="w-1.5 h-1.5 bg-brand-red rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- FOUNDER VOICES -->
+    <!-- ========================================== -->
+    <section class="bg-white py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Founder Voices</h2>
+                <p class="text-slate-500 text-sm">What happens when founders stop shouting and start signaling.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Voice 1 -->
+                <div class="bg-gray-50 p-10 rounded-3xl relative card-hover">
+                    <div
+                        class="w-8 h-8 rounded-full bg-brand-red flex items-center justify-center text-white font-serif font-black text-xl mb-8 shadow-md shadow-red-200">
+                        "</div>
+                    <p class="text-lg font-medium text-slate-800 mb-10 italic leading-relaxed">
+                        "We stopped shouting. Started signaling. Everything changed."
+                    </p>
+                    <div class="flex justify-between items-end border-t border-gray-200 pt-6">
+                        <span class="text-[10px] font-bold text-slate-900 uppercase tracking-widest">Founder —
+                            Health</span>
+                        <div class="w-6 h-0.5 bg-red-200"></div>
+                    </div>
+                </div>
+                <!-- Voice 2 -->
+                <div class="bg-gray-50 p-10 rounded-3xl relative card-hover">
+                    <div
+                        class="w-8 h-8 rounded-full bg-brand-red flex items-center justify-center text-white font-serif font-black text-xl mb-8 shadow-md shadow-red-200">
+                        "</div>
+                    <p class="text-lg font-medium text-slate-800 mb-10 italic leading-relaxed">
+                        "Pilots finally converted. The story became inevitable."
+                    </p>
+                    <div class="flex justify-between items-end border-t border-gray-200 pt-6">
+                        <span class="text-[10px] font-bold text-slate-900 uppercase tracking-widest">CEO — SaaS</span>
+                        <div class="w-6 h-0.5 bg-red-200"></div>
+                    </div>
+                </div>
+                <!-- Voice 3 -->
+                <div class="bg-gray-50 p-10 rounded-3xl relative card-hover">
+                    <div
+                        class="w-8 h-8 rounded-full bg-brand-red flex items-center justify-center text-white font-serif font-black text-xl mb-8 shadow-md shadow-red-200">
+                        "</div>
+                    <p class="text-lg font-medium text-slate-800 mb-10 italic leading-relaxed">
+                        "Terms improved because belief improved."
+                    </p>
+                    <div class="flex justify-between items-end border-t border-gray-200 pt-6">
+                        <span class="text-[10px] font-bold text-slate-900 uppercase tracking-widest">Founder —
+                            DeepTech</span>
+                        <div class="w-6 h-0.5 bg-red-200"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- CTA SECTION -->
+    <!-- ========================================== -->
+    <section class="bg-white py-24 px-6 text-center">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">Every real outcome begins with
+                Signal.</h2>
+            <p class="text-slate-600 text-lg md:text-xl font-medium">Build it once. Let every move compound.</p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+                <!-- Book a Signal Call Button -->
+                <button
+                    class="bg-brand-red hover:bg-red-700 text-white px-10 py-4 rounded-full font-bold text-base shadow-xl shadow-red-100 transition-transform hover:scale-105">
+                    Book a Signal Call
+                </button>
+                <!-- Talk to YAS Button -->
+                <button
+                    class="bg-white border-2 hover:bg-gray-50 border-slate-900 text-slate-900 px-10 py-4 rounded-full font-bold text-base transition-colors">
+                    Talk to YAS
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- FOOTER -->
+    <!-- ========================================== -->
+    <footer id="contact" class="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-gray-900">
+        <div class="max-w-[1400px] mx-auto">
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+                <!-- Brand -->
+                <div class="md:col-span-5 space-y-8">
+                    <div class="logo-text text-3xl uppercase tracking-widest text-brand-red flex items-center gap-1">
+                        I N S T A U R A
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                        Strategic consulting firm specializing in signal intelligence and market-driven growth
+                        strategies.
+                    </p>
+                    <div class="flex gap-6 text-gray-400">
+                        <a href="#" class="hover:text-white transition-colors text-xl"><i
+                                class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="hover:text-white transition-colors text-xl"><i
+                                class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="hover:text-white transition-colors text-xl"><i
+                                class="fa-regular fa-envelope"></i></a>
+                    </div>
+                </div>
+                <!-- Spacer -->
+                <div class="hidden md:block md:col-span-1"></div>
+                <!-- Links 1 -->
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Services</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Signal Architecture</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">GTM & Funnels</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Fund Raising</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Strategy Consulting</a></li>
+                    </ul>
+                </div>
+                <!-- Links 2 -->
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Insights</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Signals That Close</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">The Signal Code</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Case Studies</a></li>
+                    </ul>
+                </div>
+                <!-- Links 3 -->
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-white mb-6 text-lg">Company</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-red transition-colors">About INSTAURA</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Leadership</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Verticals</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom -->
+            <div
+                class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <div class="mb-4 md:mb-0">
+                    &copy; 2026 INSTAURA. All rights reserved.
+                </div>
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookie Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Refund Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
